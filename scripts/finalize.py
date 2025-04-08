@@ -2,7 +2,7 @@ import glob
 import os
 from rdflib import Graph
 
-prefix = "xyz"
+prefix = "parlamint"
 
 files = glob.glob(f"./datasets/{prefix}_*.nt")
 out_file = os.path.join("datasets", f"{prefix}.nt")

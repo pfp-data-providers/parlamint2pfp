@@ -16,20 +16,20 @@ from rdflib.namespace import RDF
 
 entity_type = "org"
 g = Graph()
-domain = "https://xyz.acdh.oeaw.ac.at/"
+domain = "https://parlamint.acdh.oeaw.ac.at/"
 PU = Namespace(domain)
 
 rdf_dir = "./datasets"
 os.makedirs(rdf_dir, exist_ok=True)
 
-index_file = f"./xyz-list{entity_type}.xml"
+index_file = f"./parlamint-list{entity_type}.xml"
 
 
 print("check if source file exists")
 if os.path.exists(index_file):
     pass
 else:
-    url = "https://raw.githubusercontent.com/xyz-project/xyz-entities/refs/heads/main/indices/listorg.xml"  # noqa: E501
+    url = "https://raw.githubusercontent.com/acdh-oeaw/parlamint-static/refs/heads/main/indices/listorg.xml"  # noqa: E501
     print(f"fetching {index_file} from {url}")
     response = requests.get(url)
     with open(index_file, "wb") as file:
@@ -73,6 +73,6 @@ for x in tqdm(items, total=len(items)):
             subj, start_date=y, label=f"{label[0]} wurde gegründet", label_lang=label[1]
         )
 
-save_path = os.path.join(rdf_dir, f"xyz_{entity_type}.nt")
+save_path = os.path.join(rdf_dir, f"parlamint_{entity_type}.nt")
 print(f"saving graph as {save_path}")
 g.serialize(save_path, format="nt", encoding="utf-8")

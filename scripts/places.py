@@ -15,7 +15,7 @@ from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDF
 
 
-BASE_URL = "https://raw.githubusercontent.com/xyz-project/xyz-entities/refs/heads/main/indices/"  # noqa
+BASE_URL = "https://raw.githubusercontent.com/acdh-oeaw/parlamint-static/refs/heads/main/indices/"  # noqa
 
 
 def p89_falls_within(
@@ -47,7 +47,7 @@ else:
 rdf_dir = "./datasets"
 os.makedirs(rdf_dir, exist_ok=True)
 entity_type = "place"
-index_file = f"./xyz-list{entity_type}.xml"
+index_file = f"./parlamint-list{entity_type}.xml"
 
 
 print("check if source file exists")
@@ -92,6 +92,6 @@ for x in tqdm(items, total=len(items)):
     g += p89_falls_within(subj, x, f"{PU}")
 
 
-save_path = os.path.join(rdf_dir, f"xyz_{entity_type}.nt")
+save_path = os.path.join(rdf_dir, f"parlamint_{entity_type}.nt")
 print(f"saving graph as {save_path}")
 g.serialize(save_path, format="nt", encoding="utf-8")

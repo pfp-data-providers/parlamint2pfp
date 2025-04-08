@@ -30,11 +30,11 @@ else:
 rdf_dir = "./datasets"
 os.makedirs(rdf_dir, exist_ok=True)
 
-index_file = "./xyz-listperson.xml"
+index_file = "./parlamint-listperson.xml"
 entity_type = "person"
 
 print("check if source file exists")
-BASE_URL = "https://raw.githubusercontent.com/xyz-project/xyz-entities/refs/heads/main/indices/"  # noqa
+BASE_URL = "https://raw.githubusercontent.com/acdh-oeaw/parlamint-static/refs/heads/main/indices/"  # noqa
 if os.path.exists(index_file):
     pass
 else:
@@ -84,7 +84,7 @@ for x in tqdm(items, total=len(items)):
     # birth
     try:
         x.xpath(".//tei:birth[./tei:date or ./tei:settlement]", namespaces=NSMAP)[0]
-        event_graph, birth_uri, birth_timestxyz = make_birth_death_entities(
+        event_graph, birth_uri, birth_timestparlamint = make_birth_death_entities(
             subj,
             x,
             f"{PU}",
@@ -101,7 +101,7 @@ for x in tqdm(items, total=len(items)):
     # death
     try:
         x.xpath(".//tei:death[./tei:date or ./tei:settlement]", namespaces=NSMAP)[0]
-        event_graph, death_uri, birth_timestxyz = make_birth_death_entities(
+        event_graph, death_uri, birth_timestparlamint = make_birth_death_entities(
             subj,
             x,
             f"{PU}",
@@ -118,6 +118,6 @@ for x in tqdm(items, total=len(items)):
     # occupations
     g += make_occupations(subj, x, id_xpath="./@key")[0]
 
-save_path = os.path.join(rdf_dir, f"xyz_{entity_type}.nt")
+save_path = os.path.join(rdf_dir, f"parlamint_{entity_type}.nt")
 print(f"saving graph as {save_path}")
 g.serialize(save_path, format="nt", encoding="utf-8")

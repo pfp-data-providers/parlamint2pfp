@@ -2,7 +2,7 @@
 
 echo "##############"
 DATA_DIR=datasets
-RDF_FILE=${DATA_DIR}/xyz.nt
+RDF_FILE=${DATA_DIR}/parlamint.nt
 export NO_LIMIT=1
 start_time=$(date +%s)
 

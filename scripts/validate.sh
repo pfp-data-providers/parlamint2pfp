@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATA_DIR=datasets
-RDF_FILE=xyz.nt
+RDF_FILE=parlamint.nt
 REPORT=${DATA_DIR}/validation_report.txt
 
 SHACL=${DATA_DIR}/myshapes.ttl
