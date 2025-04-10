@@ -16,9 +16,9 @@ from acdh_tei_pyutils.utils import get_xmlid
 from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDF
 
+from config import domain, BASE_URL
 
 g = Graph()
-domain = "https://kaiserin-eleonora.oeaw.ac.at/"
 PU = Namespace(domain)
 
 if os.environ.get("NO_LIMIT"):
@@ -34,7 +34,6 @@ index_file = "./parlamint-listperson.xml"
 entity_type = "person"
 
 print("check if source file exists")
-BASE_URL = "https://raw.githubusercontent.com/acdh-oeaw/parlamint-static/refs/heads/main/indices/"  # noqa
 if os.path.exists(index_file):
     pass
 else:
@@ -83,15 +82,14 @@ for x in tqdm(items, total=len(items)):
 
     # birth
     try:
-        x.xpath(".//tei:birth[./tei:date or ./tei:settlement]", namespaces=NSMAP)[0]
+        x.xpath(".//tei:birth[./tei:date or ./tei:placeName]", namespaces=NSMAP)[0]
         event_graph, birth_uri, birth_timestparlamint = make_birth_death_entities(
             subj,
             x,
             f"{PU}",
             event_type="birth",
             default_prefix="Geburt von",
-            date_node_xpath="/tei:date[1]",
-            place_id_xpath="//tei:settlement[1]/@key",
+            place_id_xpath="//tei:placeName[1]/@key",
         )
         g.add((subj, CIDOC["P98i_was_born"], birth_uri))
         g += event_graph
@@ -100,15 +98,14 @@ for x in tqdm(items, total=len(items)):
 
     # death
     try:
-        x.xpath(".//tei:death[./tei:date or ./tei:settlement]", namespaces=NSMAP)[0]
+        x.xpath(".//tei:death[./tei:date or ./tei:placeName]", namespaces=NSMAP)[0]
         event_graph, death_uri, birth_timestparlamint = make_birth_death_entities(
             subj,
             x,
             f"{PU}",
             event_type="death",
             default_prefix="Tod von",
-            date_node_xpath="/tei:date[1]",
-            place_id_xpath="//tei:settlement[1]/@key",
+            place_id_xpath="//tei:placeName[1]/@key",
         )
         g.add((subj, CIDOC["P100i_died_in"], death_uri))
         g += event_graph
