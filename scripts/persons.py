@@ -63,7 +63,7 @@ for x in tqdm(items, total=len(items)):
         f"{PU}",
         item_label,
         org_id_xpath="./@ref",
-        org_label_xpath="./@ref",
+        org_label_xpath="./@n",
     )
     g += affilliations
 
